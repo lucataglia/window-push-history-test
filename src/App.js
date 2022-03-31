@@ -16,7 +16,7 @@ function App() {
         <br/>
         the app state into the URL. That will allow the user to share the URL to someone else that
         <br/>
-        will se exactly what the first user was seeing.
+        will see exactly what the first user was seeing.
       </div>
 
       <div style={{display: 'flex', flexDirection: 'column', gap: '1rem'}}>
