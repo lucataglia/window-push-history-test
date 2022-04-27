@@ -1,11 +1,12 @@
-import { useNavigate } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
-let count = 0
 function App() {
-  count = count + 1
-  console.debug('*** Re-render <App /> component');
+  const history = useHistory();
+  const { search } = useLocation()
   
-  const navigate = useNavigate();
+  const count = new URLSearchParams(search).get('fakeParam')
+  
+  console.debug('*** Re-render <App /> component');
 
   return (
     <div style={{display: 'flex', flexDirection: 'column', gap: '2rem'}}>
@@ -31,16 +32,18 @@ function App() {
         </div>
 
         <pre>
-          {`window.history.pushState({}, \'\',  window.location.origin + window.location.pathname + \'?fakeParam=${count+1}\')`}
+          {`window.history.pushState({}, \'\',  window.location.origin + window.location.pathname + \'?fakeParam=${+count+1}\')`}
         </pre>
       </div>
       
       <div style={{display: 'flex', flexDirection: 'column', gap: '1rem'}}>
         <button 
-          onClick={() => navigate({search: `fakeParam=${count+1}`}) }
+          onClick={() => {
+            history.push({ pathname: 'foo', search: `fakeParam=${+count + 1}` });
+          }}
           style={{maxWidth: '350px'}}
           >
-          Click here to invoke react-router-dom navigate
+          Click here to invoke react-router-dom history.push 
           </button>
         
         App component re-render <strong>{count}</strong>
